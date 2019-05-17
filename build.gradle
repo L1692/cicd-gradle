@@ -39,3 +39,24 @@ sourceCompatibility = '1.8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+task loadTest(type: JavaExec) {
+    dependsOn testClasses
+    description = "load test with Gatling"
+    group = "Load Test"
+    classpath = sourceSets.test.runtimeClasspath
+    jvmArgs = [
+            // workaround for https://github.com/gatling/gatling/issues/2689 
+            "-Dgatling.core.directory.binaries=${sourceSets.test.output.classesDirs.toString()}",
+            "-Dlogback.configurationFile=${logbackGatlingConfig()}",
+    ]
+    main = "io.gatling.app.Gatling"
+    args = [
+            "--simulation", "gatling.BasicSimulation",
+            "--results-folder", "${buildDir}/gatling-results",
+            "--binaries-folder", sourceSets.test.output.classesDirs.toString(), // ignored because of above bug
+    ]
+}
+def logbackGatlingConfig() {
+    return sourceSets.test.resources.find { it.name == 'logback.xml' };
+}
