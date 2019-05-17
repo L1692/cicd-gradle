@@ -5,6 +5,8 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'scala'
+    id "com.github.lkishalmi.gatling" version "3.0.2"
 }
 
 repositories {
@@ -18,7 +20,10 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter:2.1.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:2.1.4.RELEASE'
     testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.4.RELEASE'
-    testCompile 'io.gatling.highcharts:gatling-charts-highcharts:3.0.0'
+    implementation 'org.scala-lang:scala-library:2.11.12'
+    testImplementation 'org.scalatest:scalatest_2.11:3.0.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.scala-lang:scala-library:2.11.1'    
 }
 
 jar {
