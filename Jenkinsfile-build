@@ -8,7 +8,8 @@ pipeline {
                 scannerHome = tool 'SonarQubeScanner'
             }
             steps {
-                gradle('build')
+                jacoco()
+                sh "gradle build"
                 withSonarQubeEnv('sonar') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
@@ -19,7 +20,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing....'
+                echo 'Testing.....'
             }
         }
         stage('Deploy') {
