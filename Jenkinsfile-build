@@ -46,12 +46,12 @@ pipeline {
                       docker.image("195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp").push("latest")
                     }
                 }
-                sh "kubectl config set-cluster cicd.k8s.local --server=https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com"
-                sh "kubectl config set-context cicd.k8s.local --cluster=cicd.k8s.local --user=admin"
-                sh "kubectl config use-context cicd.k8s.local"
-                sh "kubectl config set-credentials cicd.k8s.local-basic-auth --username=admin --password=Z1dTDoK8h9w2hoFMa1kvw2pnV96mxD4Q"
-                sh "kubectl config view"
                 withKubeConfig([credentialsId: 'kubernetes-deployer', serverUrl: 'https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com']) {
+                    sh "kubectl config set-cluster cicd.k8s.local --server=https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com"
+                    sh "kubectl config set-context cicd.k8s.local --cluster=cicd.k8s.local --user=admin"
+                    sh "kubectl config use-context cicd.k8s.local"
+                    sh "kubectl config set-credentials cicd.k8s.local-basic-auth --username=admin --password=Z1dTDoK8h9w2hoFMa1kvw2pnV96mxD4Q"
+                    sh "kubectl config view"
                     sh "/usr/local/bin/kubectl delete services cicdapp"
                     sh "/usr/local/bin/kubectl delete deployment cicdapp"
                     sh "sudo docker rmi \$(sudo docker images -f dangling=true -q)"
