@@ -46,6 +46,8 @@ pipeline {
                       docker.image("195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp").push("latest")
                     }
                 }
+                sh "kubectl config view"
+                sh "kubectl config use-context cicd.k8s.local"
                 sh "/usr/local/bin/kubectl delete services cicdapp"
                 sh "/usr/local/bin/kubectl delete deployment cicdapp"
                 sh "sudo docker rmi \$(sudo docker images -f dangling=true -q)"
