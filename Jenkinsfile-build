@@ -18,14 +18,32 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Test: Integration and Quality') {
+            steps {
+                echo 'Insert something here'
+            }
+        }
+        stage('Test: Functional') {
+            steps {
+                echo 'Insert something here'
+            }
+        }
+        stage('Test: Load & Security') {
             steps {
                 sh "gradle gatlingRun"
             }
         }
-        stage('Deploy') {
+        stage('Approval') {
             steps {
-                echo 'Deploying....'
+                echo 'Insert something here'
+            }
+        }
+        stage('Deploy: Prod') {
+            steps {
+                docker.build("195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp")
+                docker.withRegistry("https://your.ecr.domain.amazonws.com", "ecr:eu-west-1:bebe28a3-ed63-4acb-8a04-9e9174628b5f") {
+                  docker.image("195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp").push("latest")
+                }
             }
         }
     }
