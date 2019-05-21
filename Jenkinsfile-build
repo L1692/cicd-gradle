@@ -8,7 +8,6 @@ pipeline {
                 scannerHome = tool 'SonarQubeScanner'
             }
             steps {
-                jacoco()
                 gradle('build')
                 withSonarQubeEnv('sonar') {
                     sh "${scannerHome}/bin/sonar-scanner"
