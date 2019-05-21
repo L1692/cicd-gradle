@@ -6,7 +6,20 @@ pipeline {
         stage('Build') {
             steps {
                 jacoco()
-                gradle build sonarqube -Dsonar.host.url=${SONAR_HOST_URL}
+                gradle build sonarqube -Dsonar.host.url=$SONAR_HOST_URL
+            }
+        }
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
         stage('Test') {
