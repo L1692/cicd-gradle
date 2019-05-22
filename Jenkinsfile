@@ -31,6 +31,7 @@ pipeline {
         stage('Test: Load & Security') {
             steps {
                 sh "gradle gatlingRun"
+                gatlingArchive()
             }
         }
         stage('Approval') {
