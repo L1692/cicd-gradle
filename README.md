@@ -3,7 +3,7 @@
 Questa pipeline effettua un ciclo completo di build, test e deploy di una repository Github. L'eseguibile viene containerizzato su Docker e lanciato su una iI componenti sono i seguenti:
 
 * AWS Codepipeline come base per la struttura della pipeline
-* Un host EC2 con una immagine Jenkins per l'esecuzione delle fasi di build, push della pipeline
+* Un host EC2 con una immagine Jenkins per l'esecuzione delle fasi di build, push e deploy della pipeline
 * SonarQube come tool di analisi del codice, eseguito durante la fase di build
 * Gatling come tool di load testing per web applications, eseguito durante la fase di test
 * Kubernetes per la gestione dei container Docker
@@ -16,16 +16,16 @@ La pipeline creata su AWS è disponibile su: https://eu-west-1.console.aws.amazo
 
 L'artefatto costruito in fase di build viene immesso in una immagine Docker inviata a una repository di AWS Elastic Container Registry (https://eu-west-1.console.aws.amazon.com/ecr/repositories/cicdapp/?region=eu-west-1). 
 
-Una volta completata la build e il testing, è possibile osservare i risultati relativi a SonarQube e Gatling rispettivamente su: http://52.211.223.238:9000 e http://52.211.223.238:8080/job/cicdapp-test/gatling/ (i singoli report sono visualizzabili in basso come file HTML).
+Una volta completata la build e il testing, è possibile osservare i risultati relativi a SonarQube e Gatling rispettivamente su: http://108.128.166.70:9000 e http://108.128.166.70:8080/job/cicdapp-test/gatling/ (i singoli report sono visualizzabili in basso come file HTML).
 
 Per l'ultima fase del ciclo, CodeDeploy si occupa di immettere l'immagine Docker dal registro su una istanza EC2 attraverso un file di orchestrazione (appspec.yml) presente nella root della repository Git. E'possibile monitorare il processo di deploy su https://eu-west-1.console.aws.amazon.com/codesuite/codedeploy/deployments?region=eu-west-1 (da notare che CodeDeploy impiega un tempo fisso di 5 minuti per chiudere e riaprire il traffico dell'istanza EC2 durante l'installazione ed esecuzione del container Docker e dunque questa ultima fase può durare intorno ai 15 minuti).
 
-Il monitoraggio dei container Docker è effettuabile tramite Kubernetes. La dashboard è presente sull'url: https://api-cicd-k8s-local-gtgus3-1144388551.eu-west-1.elb.amazonaws.com/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy. In caso di sessione scaduta sulla dashboard, inserire le seguenti credenziali: 
+Il monitoraggio dei container Docker è effettuabile tramite Kubernetes. La dashboard è presente sull'url: https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy. In caso di sessione scaduta sulla dashboard, inserire le seguenti credenziali: 
 
 * admin 
-* OLhwZn303nuVNJv4yY4S0DzGNVEc32TI 
+* Z1dTDoK8h9w2hoFMa1kvw2pnV96mxD4Q 
 
 e il seguente token se richiesto: 
 
-* NyUwrzOKK2spRzVy6WaCmTWCvJlKuinq
+* dEJxcimayWDvpErduecFaaZ2I7lUVU9W
 
