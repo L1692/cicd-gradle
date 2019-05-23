@@ -52,7 +52,6 @@ pipeline {
                     sh "kubectl get services"
                     sh "kubectl delete services cicdapp"
                     sh "kubectl delete deployment cicdapp"
-                    sh "docker rmi \$(docker images -f dangling=true -q)"
                     sh "\$(aws ecr get-login --region eu-west-1 --no-include-email)"
                     sh "kubectl run cicdapp --image=195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp:latest --port=80"
                     sh "kubectl expose deployment cicdapp --type='LoadBalancer'"
