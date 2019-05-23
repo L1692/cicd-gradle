@@ -12,7 +12,7 @@ Attualmente la pipeline è funzionante per progetti Maven, con immagini Docker b
 
 ### Accessso alla pipeline
 
-La pipeline creata su AWS è disponibile su: https://eu-west-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/cicdapp/view?region=eu-west-1. Affinché venga lanciato un nuovo ciclo di sviluppo, si deve fare un push di una commit sulla repository oppure dalla pagina di CodePipeline, andare sulla pipeline *cicdapp* e cliccare su Relase Change. Gli step di build e test sono eseguiti dal servizio Jenkins presente all'url: http://52.211.223.238:8080. E'necessario loggarsi come utente di Github per accedere all'url e monitorare i progressi delle build.
+La pipeline creata su AWS è disponibile su: https://eu-west-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/cicdapp/view?region=eu-west-1. Affinché venga lanciato un nuovo ciclo di sviluppo, si deve fare un push di una commit sulla repository oppure dalla pagina di CodePipeline, andare sulla pipeline *cicdapp* e cliccare su Relase Change. Gli step di build e test sono eseguiti dal servizio Jenkins presente all'url: http://99.80.28.74:8080/. E'necessario loggarsi come utente di Github per accedere all'url e monitorare i progressi delle build.
 
 L'artefatto costruito in fase di build viene immesso in una immagine Docker inviata a una repository di AWS Elastic Container Registry (https://eu-west-1.console.aws.amazon.com/ecr/repositories/cicdapp/?region=eu-west-1). 
 
