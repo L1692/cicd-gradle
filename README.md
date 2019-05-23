@@ -16,7 +16,7 @@ La pipeline creata su AWS è disponibile su: https://eu-west-1.console.aws.amazo
 
 L'artefatto costruito in fase di build viene immesso in una immagine Docker inviata a una repository di AWS Elastic Container Registry (https://eu-west-1.console.aws.amazon.com/ecr/repositories/cicdapp/?region=eu-west-1). 
 
-Una volta completata la build e il testing, è possibile osservare i risultati relativi a SonarQube e Gatling rispettivamente su: http://108.128.166.70:9000 e http://108.128.166.70:8080/job/cicdapp-test/gatling/ (i singoli report sono visualizzabili in basso come file HTML).
+Una volta completata la build e il testing, è possibile osservare i risultati relativi a SonarQube e Gatling rispettivamente su: http://99.80.28.74:9000 e http://99.80.28.74:8080/job/cicdapp-test/gatling/ (i singoli report sono visualizzabili in basso come file HTML).
 
 Per l'ultima fase del ciclo, CodeDeploy si occupa di immettere l'immagine Docker dal registro su una istanza EC2 attraverso un file di orchestrazione (appspec.yml) presente nella root della repository Git. E'possibile monitorare il processo di deploy su https://eu-west-1.console.aws.amazon.com/codesuite/codedeploy/deployments?region=eu-west-1 (da notare che CodeDeploy impiega un tempo fisso di 5 minuti per chiudere e riaprire il traffico dell'istanza EC2 durante l'installazione ed esecuzione del container Docker e dunque questa ultima fase può durare intorno ai 15 minuti).
 
