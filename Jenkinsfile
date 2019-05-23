@@ -47,7 +47,7 @@ pipeline {
                       docker.image("195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp").push("latest")
                     }
                 }
-                //put delete command lines in comments if deploying image for the first time
+                //put delete command lines in comments if deploying image for the first time or docker finds no dangling images to delete
                 withKubeConfig([credentialsId: 'kubernetes-deployer', serverUrl: 'https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com']) {
                     sh "kubectl get services"
                     sh "kubectl delete services cicdapp"
