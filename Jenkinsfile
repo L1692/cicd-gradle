@@ -3,10 +3,10 @@ pipeline {
     agent any
 
     parameters {
-        string(defaultValue: 'https://195360077735.dkr.ecr.eu-west-1.amazonaws.com', description: '', name: 'ECRRepo')
-        string(defaultValue: '195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp', description: '', name: 'dockerImageName')
-        string(defaultValue: 'latest', description: '', name: 'dockerImageTag')
-        string(defaultValue: 'cicdapp', description: '', name: 'kubeName')
+        string(defaultValue: "https://195360077735.dkr.ecr.eu-west-1.amazonaws.com", description: "", name: "ECRRepo")
+        string(defaultValue: "195360077735.dkr.ecr.eu-west-1.amazonaws.com/cicdapp", description: "", name: "dockerImageName")
+        string(defaultValue: "latest", description: '', name: "dockerImageTag")
+        string(defaultValue: "cicdapp", description: '', name: "kubeName")
     }
 
     stages {
