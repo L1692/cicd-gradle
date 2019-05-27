@@ -36,7 +36,7 @@ dependencies {
 bootJar {
     baseName = jarName
     version =  jarVersion
-    mainClassName = jsrBootClass
+    mainClassName = jarBootClass
 }
 
 group = projectGroup
