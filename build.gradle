@@ -34,14 +34,14 @@ dependencies {
 }
 
 bootJar {
-    baseName = 'cicd'
-    version =  '0.1'
-    mainClassName = 'com.example.cicd.CicdApplication'
+    baseName = jarName
+    version =  jarVersion
+    mainClassName = jsrBootClass
 }
 
-group = 'com.example'
-version = '0.1'
-description = 'cicd'
+group = projectGroup
+version = projectVersion
+description = projectDescription
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
