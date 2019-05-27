@@ -49,18 +49,18 @@ pipeline {
         stage('Deploy: Prod') {
             steps {
                 script {
-                    docker.build(${params.dockerImageName})
-                    docker.withRegistry(${params.ECRRepo}, "ecr:eu-west-1:bebe28a3-ed63-4acb-8a04-9e9174628b5f") {
-                      docker.image(${params.dockerImageName}).push(${params.dockerImageTag})
+                    docker.build(params.dockerImageName)
+                    docker.withRegistry(params.ECRRepo, "ecr:eu-west-1:bebe28a3-ed63-4acb-8a04-9e9174628b5f") {
+                      docker.image(params.dockerImageName).push(params.dockerImageTag)
                     }
                 }
                 withKubeConfig([credentialsId: 'kubernetes-deployer', serverUrl: 'https://api-cicd-k8s-local-gtgus3-1195838833.eu-west-1.elb.amazonaws.com']) {
-                    sh "kubectl delete services ${kubeName} || true"
-                    sh "kubectl delete deployment ${kubeName} || true"
+                    sh "kubectl delete services ${params.kubeName} || true"
+                    sh "kubectl delete deployment ${params.kubeName} || true"
                     sh "docker rmi \$(docker images -f dangling=true -q) || true"
                     sh "\$(aws ecr get-login --region eu-west-1 --no-include-email)"
                     sh "kubectl run cicdapp --image=${params.dockerImageName}:${params.dockerImageTag} --port=80"
-                    sh "kubectl expose deployment ${kubeName} --type='LoadBalancer'"
+                    sh "kubectl expose deployment ${params.kubeName} --type='LoadBalancer'"
                 }
             }
         }
